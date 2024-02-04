@@ -7,10 +7,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.UUID;
 
 public class JwtService {
 
@@ -19,10 +19,10 @@ public class JwtService {
     }
 
 
-    public static String generateToken(UserDetails userDetails) {
+    public static String generateToken(UUID id) {
         return Jwts
                 .builder()
-                .setSubject(userDetails.getUsername())
+                .setSubject(id.toString())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24 * 60 ))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
