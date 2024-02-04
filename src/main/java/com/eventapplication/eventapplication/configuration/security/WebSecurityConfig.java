@@ -1,6 +1,7 @@
 package com.eventapplication.eventapplication.configuration.security;
 
 
+import com.eventapplication.eventapplication.configuration.jwt.JwtAuthenticationFilter;
 import com.eventapplication.eventapplication.services.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -22,17 +24,19 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final String[] allowedUrl={
             "/doc",
             "/swagger*/**",
             "/v3/api-docs/**",
-            "/login",
-            "/register"
+            "/v1/api/auth/login",
+            "/v1/api/auth/register"
     };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .sessionManagement(sessionManagement->sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize->authorize.requestMatchers(allowedUrl).permitAll()
                         .anyRequest().authenticated()
