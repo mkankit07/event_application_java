@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 public class LoginReq {
-    @NotNull
+    @NotNull(message = "email must be required")
     private String email;
-    @NotNull
+    @NotNull(message = "email must be required")
     private String password;
 }

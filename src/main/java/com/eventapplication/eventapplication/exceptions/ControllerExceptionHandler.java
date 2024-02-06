@@ -1,5 +1,6 @@
 package com.eventapplication.eventapplication.exceptions;
 
+import com.eventapplication.eventapplication.common.ResponseBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,24 +12,16 @@ import java.util.Date;
 @RestControllerAdvice
 public class ControllerExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorMessage> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
-        ErrorMessage message = new ErrorMessage(
-                HttpStatus.NOT_FOUND.value(),
-                new Date(),
-                ex.getMessage(),
-                request.getDescription(false));
+    public ResponseEntity<ResponseBuilder> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
 
-        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(new ResponseBuilder().setMassage(ex.getMessage()).setStatus(HttpStatus.NOT_FOUND.value()).build(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorMessage> globalExceptionHandler(Exception ex, WebRequest request) {
-        ErrorMessage message = new ErrorMessage(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                new Date(),
-                ex.getMessage(),
-                request.getDescription(false));
+    public ResponseEntity<ResponseBuilder> globalExceptionHandler(Exception ex, WebRequest request) {
 
-        return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return new ResponseEntity<>(new ResponseBuilder().setMassage(ex.getMessage()).setStatus(HttpStatus.NOT_FOUND.value()).build(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
