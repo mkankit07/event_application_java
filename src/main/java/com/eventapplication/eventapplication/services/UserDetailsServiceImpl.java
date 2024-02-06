@@ -1,6 +1,6 @@
 package com.eventapplication.eventapplication.services;
 
-import com.eventapplication.eventapplication.common.ConstantMessage;
+import com.eventapplication.eventapplication.common.Constant;
 import com.eventapplication.eventapplication.entity.User;
 import com.eventapplication.eventapplication.exceptions.ResourceNotFoundException;
 import com.eventapplication.eventapplication.repository.UserRepository;
@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = repository.findByEmail(username).orElseThrow(() ->
-                new ResourceNotFoundException(String.format(ConstantMessage.USER_NOT_FOUND.getValue())));
+                new ResourceNotFoundException(String.format(Constant.USER_NOT_FOUND)));
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getEmail())
                 .password(user.getPassword())

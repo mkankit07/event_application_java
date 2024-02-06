@@ -2,19 +2,18 @@ package com.eventapplication.eventapplication.entity;
 
 import com.eventapplication.eventapplication.enums.Status;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Builder
 @Getter
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-@AllArgsConstructor
 public class User extends BaseEntity {
 
     @Column(name = "first_name")
@@ -38,4 +37,6 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "users")
     private Set<UserRole> userRoles;
+
+
 }

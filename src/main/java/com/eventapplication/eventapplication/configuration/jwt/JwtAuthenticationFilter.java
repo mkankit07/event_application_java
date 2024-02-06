@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+
 @RequiredArgsConstructor
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsServiceImpl userDetailsService;
     private final ObjectMapper objectMapper;
@@ -65,7 +66,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                  "/v3/api-docs/**",
                  "/v1/api/auth/login",
                  "/v1/api/auth/register");
-
         return allowedUrl.contains(request.getRequestURI());
+
     }
 }
