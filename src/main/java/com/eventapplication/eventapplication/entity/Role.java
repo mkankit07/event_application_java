@@ -23,8 +23,7 @@ public class Role   {
     private UUID id;
 
     @Column(name = "title" ,nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleEnum title;
+    private String  title;
 
     @Column(name = "description" ,length = 3000)
     private String description;
@@ -39,7 +38,4 @@ public class Role   {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private Set<UserRole> userRoles;
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -35,8 +36,13 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
-    @OneToMany(mappedBy = "users")
-    private Set<UserRole> userRoles;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
 
 }

@@ -1,9 +1,12 @@
 package com.eventapplication.eventapplication.models.request;
 
+import com.eventapplication.eventapplication.entity.Role;
 import com.eventapplication.eventapplication.enums.Status;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.Set;
 
 @Getter
 @Builder(toBuilder = true)
@@ -24,4 +27,6 @@ public class RegisterReq {
     private String bio;
 
     private Status status= Status.ACTIVE;
+
+    private Set<String> roles;
 }
