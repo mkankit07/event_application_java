@@ -5,6 +5,8 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Builder
@@ -16,4 +18,5 @@ public class UserResponseDTO {
     private String bio;
     private String email;
     private Date createdAt;
+    private List<RoleResponseDTO> roles;
 }

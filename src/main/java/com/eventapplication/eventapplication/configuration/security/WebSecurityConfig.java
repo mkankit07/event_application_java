@@ -30,7 +30,8 @@ public class WebSecurityConfig {
             "/swagger*/**",
             "/v3/api-docs/**",
             "/v1/api/auth/login",
-            "/v1/api/auth/register"
+            "/v1/api/auth/register",
+            "/v1/api/role"
     };
 
     @Bean

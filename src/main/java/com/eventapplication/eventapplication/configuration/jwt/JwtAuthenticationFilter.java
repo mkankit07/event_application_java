@@ -65,7 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                  "/swagger*/**",
                  "/v3/api-docs/**",
                  "/v1/api/auth/login",
-                 "/v1/api/auth/register");
+                 "/v1/api/auth/register","/v1/api/role");
         return allowedUrl.contains(request.getRequestURI());
 
     }
